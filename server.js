@@ -11,9 +11,14 @@ app.get("/", (req, res) => {
 });
 
 if (process.env.NODE_ENV === "production") {
-    app.post("/bot-webhook", (req, res) => {
-        bot.processUpdate(req.body);
-        res.sendStatus(200);
+    app.post("/bot-webhook", async (req, res) => {
+        try {
+            await bot.handleUpdate(req.body);
+            return res.sendStatus(200);
+        } catch (err) {
+            console.error("Webhook error:", err);
+            return res.sendStatus(500);
+        }
     });
 }
 
