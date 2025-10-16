@@ -10,6 +10,13 @@ app.get("/", (req, res) => {
     res.send("Server ishlayapti ✅ Bot esa fon rejimida xabar yuboradi.");
 });
 
+if (process.env.NODE_ENV === "production") {
+    app.post("/bot-webhook", (req, res) => {
+        bot.processUpdate(req.body);
+        res.sendStatus(200);
+    });
+}
+
 // Serverni ishga tushiramiz
 app.listen(PORT, () => {
     console.log(`Server http://localhost:${PORT} da ishga tushdi`);
