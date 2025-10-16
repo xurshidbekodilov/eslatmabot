@@ -7,12 +7,7 @@ let bot;
 
 // NODE_ENV ga qarab polling yoki webhook ishlatamiz
 if (process.env.NODE_ENV === "production") {
-    bot = new TelegramBot(token, {
-        webHook: {
-            port: process.env.PORT || 3000,
-            host: "0.0.0.0",
-        },
-    });
+    bot = new TelegramBot(token);
     // Webhook URL ni o‘rnatamiz
     const url = process.env.WEBHOOK_URL + "/bot-webhook";
     bot.setWebHook(url);
